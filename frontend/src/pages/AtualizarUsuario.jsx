@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import "../styles/Usuario.css"
-import { useParams,useLocation } from 'react-router-dom'
+import { useParams,useLocation, useNavigate } from 'react-router-dom'
 function AtualizarUsuario() {
   const {id}= useParams()
   const location = useLocation()
-  console.log(location)
+  const navigate = useNavigate()
+  const irparauser=()=>navigate('/user')
+  
+
   const[usuario,setUsuario] = useState({nome:"",sexo:"",idade:0})
   useEffect(()=>{
     setUsuario({
-      nome:location.state.Nome,
-      sexo:location.state.Sexo,
-      idade:location.state.Idade
+      nome:location.state.nome,
+      sexo:location.state.sexo,
+      idade:location.state.idade
     })
-  },[])
+  },[location])
+  
 
   function Atualizar (){
-    axios.put(`http://localhost:4000/attuser/${id}`)
+    axios.put(`http://localhost:4000/attuser/${id}`,usuario)
         .then(response => console.log(response))
         .catch(err=>console.log(err)) 
+    irparauser()
+   
   }
 
   return (

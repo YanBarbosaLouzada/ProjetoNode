@@ -1,28 +1,36 @@
-import React from 'react'
+
 import "../styles/Usuario.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
 function Usuario(props) {
   const navigate = useNavigate()
-  const irparaeditar=()=>navigate(`/attuser/${props.uid}`,{state:props})
-  
+  const obj = {
+    nome: props.nome,
+    idade: props.idade,
+    sexo: props.sexo
+  }
+  const irparaeditar=()=>navigate(`/attuser/${props.uid}`,{state: obj})
+
+
   function deletar (){
     axios.delete(`http://localhost:4000/deluser/${props.uid}`)
         .then(response => {
-          console.log(response)  ;
-          props.clean(props.uid)}
-        )
+          console.log(response);
+          props.clean(props.uid)
+        })
         .catch(err=>console.log(err)) 
+       
   }
 
   
   return (
     <>
       <div className="card">
-        <div className="card-img"><div className="img"></div></div>
-        <div className="card-title">{props.Nome}</div>
-        <div className="card-subtitle">{props.Sexo}</div>
-        <div className="card-price">Idade: {props.Idade} </div>
+        <div className="card-img">  <div className="img"></div></div>
+        <div className="card-title">{props.nome}</div>
+        <div className="card-subtitle">{props.sexo}</div>
+        <div className="card-price">Idade: {props.idade} </div>
 
         <div className="card-footer">
           <div className='divbutton'>

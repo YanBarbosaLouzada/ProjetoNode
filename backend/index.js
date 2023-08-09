@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const exRouter = require('./routes/exRouter')
 const admin = require('firebase-admin');
 const usercontroller = require('./routes/userrouter')
 require('dotenv').config()
@@ -15,11 +14,10 @@ admin.initializeApp({
   databaseURL: 'https://proj-node-react-firebase-default-rtdb.firebaseio.com/'
 });
 
-app.use(exRouter)
 app.use(usercontroller)
 
 const port = process.env.PORT || 8000
 
-app.listen(port,()=>{
+app.listen(port, () => {
   console.log(`Servidor rodando na porta: ${port}`)
 })
