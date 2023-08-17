@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 
+
 module.exports = class UsuarioController {
 
     static async findByUser(req, res) {
@@ -62,4 +63,35 @@ module.exports = class UsuarioController {
             res.status(500).json({ error: 'Erro ao deletar usuário' });
         }
     }
+
+
+    static async loginUser(req, res) {
+        const nome = req.body.nome;
+        const idade = req.body.idade;
+
+        try {
+            const userQuerySnapshot = await admin.firestore().collection('TESTE').where('nome', '==', nome).get();
+            const userDoc = userQuerySnapshot.docs[0];
+            const user = userDoc.data();
+
+            if (userQuerySnapshot.empty) {
+                res.send({ msg: "Usuário não registrado!" });
+                return;
+            }
+            if (user.idade !== idade) {
+                res.send({ msg: "Idade incorreta" });
+                return;
+            }
+
+            const uid = userDoc.id;
+            const customToken = await admin.auth().createCustomToken(uid);
+            
+            res.send({ msg: "Usuário logado", customToken });
+
+        } catch (error) {
+            console.error(error);
+            res.send({ msg: "Erro ao fazer login" });
+        }
+    }
+
 }

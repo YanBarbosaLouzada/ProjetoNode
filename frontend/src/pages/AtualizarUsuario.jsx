@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import "../styles/Usuario.css"
 import { useParams,useLocation, useNavigate } from 'react-router-dom'
+import Navbar from '../component/Navbar'
+
 function AtualizarUsuario() {
   const {id}= useParams()
   const location = useLocation()
@@ -24,11 +26,11 @@ function AtualizarUsuario() {
         .then(response => console.log(response))
         .catch(err=>console.log(err)) 
     irparauser()
-   
   }
 
   return (
     <div>
+      <Navbar></Navbar>
       <div>
         <div className='formcenter'>
           <form  className="form">

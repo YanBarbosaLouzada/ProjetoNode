@@ -27,7 +27,7 @@ function Usuario(props) {
   return (
     <>
       <div className="card">
-        <div className="card-img">  <div className="img"></div></div>
+        <div className="card-img" > <div className={"img"} data-gender={props.sexo}></div></div>
         <div className="card-title">{props.nome}</div>
         <div className="card-subtitle">{props.sexo}</div>
         <div className="card-price">Idade: {props.idade} </div>

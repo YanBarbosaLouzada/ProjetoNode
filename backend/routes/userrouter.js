@@ -3,6 +3,7 @@ const usercontroller = require("../controllers/Usuariocontroller")
 
 router.get("/user",usercontroller.findByUser)
 router.post("/newuser",usercontroller.createUser)
+router.post("/login",usercontroller.loginUser)
 router.put("/attuser/:id",usercontroller.updateUser)
 router.delete("/deluser/:id",usercontroller.deleteUser)
 
